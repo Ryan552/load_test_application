@@ -34,7 +34,7 @@ Check that the target IP address on the UI matches the benchmark application, th
 Start the Locust Load test on the UI.
 
 As default the load shape will modify the user count to aim to maintain the response time between thresholds:
-  -	         Median response time threshold: 		1000 ms
+  -	Median response time threshold: 		1000 ms
   -	95th Percentile response time threshold:    3000 ms
 
 This is controlled in the file docker-image/locust/locustfile.py.
