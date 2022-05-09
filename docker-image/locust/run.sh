@@ -1,10 +1,12 @@
-#This script is ran at container initialisation to start locust
+#!/bin/bash
+#This script is run at container initialisation to start locust
 
 #define the location of the locust programme in the container
 locust_programme="/usr/local/bin/locust"
 
 #receive the locust mode from the environment variable locust_node_type
-locust_node_type=${LOCUST_MODE:-standalone}
+#locust_node_type=${LOCUST_MODE:-standalone}
+locust_node_type=${locust_is_master:-standalone}
 
 #if the locust_node_type is "master"
 if [[ "$locust_node_type" = "master" ]]; then
