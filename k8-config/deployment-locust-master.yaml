@@ -1,0 +1,45 @@
+#.yaml file that creates a kubernetes deployment that creates 1 replicas of a locust master node
+
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: locust-master
+  labels:
+    name: locust-master
+#define the spec for the deployment, 1 replica of template with loc-node tag of worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      locust-node: master
+  #define a template for the locust master node
+  template:
+    metadata:
+      labels:
+        locust-node: master
+    #spec for the container to be run on the locust-master kubernetes node
+    spec:
+      containers:
+        - name: locust-master
+          image: gcr.io/[PROJECT_ID]/load-test-application:latest
+          env:
+            #this environment variable is used in the docker-image/locust/run.sh file to start locust node in master mode
+            - name: LOCUST_MODE
+              value: master
+            #this environment variable is used in the docker-image/locust/run.sh file to start locust node with the target host
+            - name: TARGET_HOST
+              value: http://[TARGET_HOST]
+            #this environment variable is used in the docker-image/locust/run.sh file to start locust node and change the name of the csv file the results are saved to
+            - name: TEST_NAME
+              value: [TEST_NAME]
+          #expose ports to cluster
+          ports:
+            - name: master-web
+              containerPort: 8089
+              protocol: TCP
+            - name: master-port1
+              containerPort: 5557
+              protocol: TCP
+            - name: master-port2
+              containerPort: 5558
+              protocol: TCP

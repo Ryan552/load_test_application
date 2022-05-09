@@ -1,0 +1,37 @@
+#.yaml file that creates a kubernetes deployment that creates 5 replicas of a locust worker node
+
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: locust-worker
+  labels:
+    name: locust-worker
+#define the spec for the deployment, 5 copies of template with locust-node tag of worker
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      locust-node: worker
+  #define a template for the locust worker node
+  template:
+    metadata:
+      labels:
+        locust-node: worker
+    #spec for the container to be run on the locust-worker kubernetes node
+    spec:
+      containers:
+        - name: locust-worker
+          image: gcr.io/[PROJECT_ID]/load-test-application:latest
+          env:
+            #this environment variable is used in the docker-image/locust/run.sh file to start locust node in worker mode
+            - name: LOCUST_MODE
+              value: worker
+            #this environment variable is used in the docker-image/locust/run.sh file to start locust node with the locust-master as the host
+            - name: LOCUST_MASTER_NODE_HOST
+              value: locust-master
+            #this environment variable is used in the docker-image/locust/run.sh file to start locust node with the target host
+            - name: TARGET_HOST
+              value: http://[TARGET_HOST]
+            #this environment variable is used in the docker-image/locust/run.sh file to start locust node and change the name of the csv file the results are saved to
+            - name: TEST_NAME
+              value: [TEST_NAME]

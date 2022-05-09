@@ -1,0 +1,28 @@
+#.yaml file for a kubernetes service for creating a load balancer for the locust-master
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: locust-master
+  labels:
+    locust-node: master
+#spec creates load balancer that directs traffic from nodes with locust-node tag of master
+spec:
+  ports:
+    #map the web port
+    - port: 8089
+      targetPort: master-web
+      protocol: TCP
+      name: master-web
+    #map the ports used for communication between the master and worker nodes
+    - port: 5557
+      targetPort: master-port1
+      protocol: TCP
+      name: master-port1
+    - port: 5558
+      targetPort: master-port2
+      protocol: TCP
+      name: master-port2
+  selector:
+    locust-node: master
+  type: LoadBalancer
