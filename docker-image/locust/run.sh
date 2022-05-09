@@ -20,6 +20,6 @@ elif [[ "$locust_node_type" = "worker" ]]; then
 fi
 
 #echo commands to the terminal
-echo "$locust_programme $LOCUS_OPTS"
+echo "$locust_programme $locust_command"
 #run commands in terminal
-$locust_programme $LOCUS_OPTS
+$locust_programme $locust_command
