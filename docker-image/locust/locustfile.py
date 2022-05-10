@@ -85,7 +85,7 @@ def send_report(environment):
 
     #create a socket connection and connect using the IP address of the Results Server
     sock = socket.socket()
-    sock.connect( ("[RESULTS_IP]", 2003) )
+    sock.connect( ("35.193.116.50", 2003) )
 
     #Run while the state of the locust master's run state is not stopping, stopped or in post stop cleanup
     while not environment.runner.state in [STATE_STOPPING, STATE_STOPPED, STATE_CLEANUP]:
