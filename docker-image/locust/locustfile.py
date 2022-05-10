@@ -21,7 +21,7 @@ user_count = 0
 run_time = 0
 threshold_median = 1000
 threshold_95perc = 3000
-records_start_time = 1651795200
+records_start_time = 1651536000
 
 #Function that checks the current state of the response time and sets the global control variables approporately
 def check_load(environment):
