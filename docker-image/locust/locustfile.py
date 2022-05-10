@@ -21,7 +21,7 @@ user_count = 0
 run_time = 0
 threshold_median = 1000
 threshold_95perc = 3000
-records_start_time = 1651536000
+records_start_time = 1651795200
 
 #Function that checks the current state of the response time and sets the global control variables approporately
 def check_load(environment):
@@ -85,7 +85,7 @@ def send_report(environment):
 
     #create a socket connection and connect using the IP address of the Results Server
     sock = socket.socket()
-    sock.connect( ("34.71.225.20", 2003) )
+    sock.connect( ("[RESULTS_IP]", 2003) )
 
     #Run while the state of the locust master's run state is not stopping, stopped or in post stop cleanup
     while not environment.runner.state in [STATE_STOPPING, STATE_STOPPED, STATE_CLEANUP]:
