@@ -1,11 +1,11 @@
-#vars to be edited based on the deployment criteria and benchmark application specification and deployment
+#vars to be edited based on the deployment criteria and benchmark application and results server spec and IP address 
 projectID="rglynn01-40127817"
 zone=us-central1-b
-clusterName=load_test_application
-targetIP="34.88.122.184:8080"
-appName=test
-vmName=test
-
+clusterName=load-test-application
+targetIP="34.88.95.137:8080"
+appName=simple_calc_app
+vmName=e2-medium
+resultServerIP="34.71.167.147"
 scope="https://www.googleapis.com/auth/cloud-platform"
 testReference="load_test_${appName}_${vmName}"
 
@@ -21,6 +21,7 @@ cd load_test_application
 #change the tasks.py file with the appName and vmName variables to ensure data is recorded correctly
 sed -i -e "s/\[APP_NAME\]/$appName/g" docker-image/locust/locustfile.py
 sed -i -e "s/\[VM_NAME\]/$vmName/g" docker-image/locust/locustfile.py
+sed -i -e "s/\[RESULTS_IP\]/$resultServerIP/g" docker-image/locust/locustfile.py
 
 #wait for background setup processes to finish before proceeding
 wait
@@ -71,7 +72,7 @@ wait
 
 #deploy the master and workers nodes on the kubernetes cluster
 kubectl apply -f k8-config/deployment-locust-master.yaml
-kubectl apply -f k8-config/service-locust-master-.yaml
+kubectl apply -f k8-config/service-locust-master.yaml
 kubectl apply -f k8-config/deployment-locust-worker.yaml
 
 #wait for the master node to be deployed on the cluster
