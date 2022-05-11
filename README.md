@@ -14,7 +14,7 @@ Cloud Build
 Kubernetes Engine
 Cloud Storage
 
-This application is to be deployed on google kjubernetes after the Banchmark Application has been set up.
+This application is to be deployed on google kubernetes after the Banchmark_Application and results-server has been set up.
 
 Open a Google Cloud Shell Terminal to run the run_script.sh shell script, modifying the following variables to suit the benchmark being conducted:
 
@@ -24,6 +24,7 @@ Open a Google Cloud Shell Terminal to run the run_script.sh shell script, modify
  - $targetIP="34.88.122.184:8080"
  - $APP_NAME=example_app
  - $VM_NAME=example_VM
+ - $resultServerIP="34.71.167.147"
 
 The output of the run_script.sh script prints the external IP address of the locust UI.
 
